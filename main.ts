@@ -11,13 +11,9 @@ function servo1_xoay () {
 }
 radio.onReceivedNumber(function (receivedNumber) {
     if (receivedNumber == 100) {
-        mode = 1
-        basic.showString("Auto mode")
-        nga_tu = 0
-        diem_dung = 0
+        autoStatus()
     } else if (receivedNumber > 100) {
-        mode = 0
-        basic.showString("Manual mode")
+        manualStatus()
     }
     if (mode == 1) {
         if (receivedNumber <= 3) {
@@ -50,6 +46,18 @@ function dung () {
     pins.digitalWritePin(DigitalPin.P14, 0)
     pins.digitalWritePin(DigitalPin.P15, 0)
     pins.digitalWritePin(DigitalPin.P16, 0)
+}
+function autoStatus () {
+    mode = 1
+    pins.digitalWritePin(DigitalPin.P5, 1)
+    pins.digitalWritePin(DigitalPin.P11, 0)
+    basic.showString("Auto")
+}
+function manualStatus () {
+    mode = 0
+    pins.digitalWritePin(DigitalPin.P5, 0)
+    pins.digitalWritePin(DigitalPin.P11, 1)
+    basic.showString("Manual")
 }
 function trai () {
     pins.analogWritePin(AnalogPin.P13, 0)
@@ -106,26 +114,25 @@ function tien () {
     pins.analogWritePin(AnalogPin.P15, 0)
     pins.analogWritePin(AnalogPin.P16, toc_thang)
 }
-let diem_dung = 0
 let mode = 0
+let diem_dung = 0
 let goc_xoay = 0
 let goc_nang = 0
 let toc_thang = 0
 let toc_re = 0
-let nga_tu = 0
 radio.setGroup(1)
 for (let index = 0; index < 4; index++) {
     basic.showIcon(IconNames.Heart)
     basic.showIcon(IconNames.SmallHeart)
 }
-nga_tu = 0
+let nga_tu = 0
 toc_re = 512
 toc_thang = 512
 goc_nang = 45
 goc_xoay = 0
 pins.servoWritePin(AnalogPin.P0, goc_nang)
 pins.servoWritePin(AnalogPin.P1, goc_xoay)
-mode = 0
+manualStatus()
 nga_tu = 0
 diem_dung = 0
 // Chương trình tự động
