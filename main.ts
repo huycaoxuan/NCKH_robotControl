@@ -133,7 +133,6 @@ goc_xoay = 0
 pins.servoWritePin(AnalogPin.P0, goc_nang)
 pins.servoWritePin(AnalogPin.P1, goc_xoay)
 manualStatus()
-nga_tu = 0
 diem_dung = 0
 // Chương trình tự động
 basic.forever(function () {
