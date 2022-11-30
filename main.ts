@@ -51,13 +51,15 @@ function autoStatus () {
     mode = 1
     pins.digitalWritePin(DigitalPin.P5, 1)
     pins.digitalWritePin(DigitalPin.P11, 0)
-    basic.showString("Auto")
+    basic.showString("A")
 }
 function manualStatus () {
     mode = 0
     pins.digitalWritePin(DigitalPin.P5, 0)
     pins.digitalWritePin(DigitalPin.P11, 1)
-    basic.showString("Manual")
+    diem_dung = 0
+    nga_tu = 0
+    basic.showString("M")
 }
 function trai () {
     pins.analogWritePin(AnalogPin.P13, 0)
@@ -115,6 +117,7 @@ function tien () {
     pins.analogWritePin(AnalogPin.P16, toc_thang)
 }
 let mode = 0
+let nga_tu = 0
 let diem_dung = 0
 let goc_xoay = 0
 let goc_nang = 0
@@ -125,7 +128,6 @@ for (let index = 0; index < 4; index++) {
     basic.showIcon(IconNames.Heart)
     basic.showIcon(IconNames.SmallHeart)
 }
-let nga_tu = 0
 toc_re = 512
 toc_thang = 512
 goc_nang = 45
@@ -134,6 +136,7 @@ pins.servoWritePin(AnalogPin.P0, goc_nang)
 pins.servoWritePin(AnalogPin.P1, goc_xoay)
 manualStatus()
 diem_dung = 0
+nga_tu = 0
 // Chương trình tự động
 basic.forever(function () {
     if (mode == 1) {
@@ -149,6 +152,7 @@ basic.forever(function () {
             } else if (pins.digitalReadPin(DigitalPin.P12) == 0 && (pins.digitalReadPin(DigitalPin.P8) == 0 && pins.digitalReadPin(DigitalPin.P2) == 0)) {
                 nga_tu = nga_tu + 1
                 if (nga_tu < diem_dung) {
+                    tien()
                     basic.showNumber(nga_tu)
                 } else if (nga_tu == diem_dung) {
                     dung()
