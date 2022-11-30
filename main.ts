@@ -96,6 +96,8 @@ function dapLua () {
         }
     }
     radio.sendNumber(11)
+    basic.pause(1000)
+    servoStart()
 }
 function xoayphai () {
     gocXoay = Math.max(0, gocXoay - 5)
@@ -169,6 +171,7 @@ basic.forever(function () {
                     dung()
                     basic.showNumber(nga_tu)
                     dapLua()
+                    manualStatus()
                 }
             }
         }
